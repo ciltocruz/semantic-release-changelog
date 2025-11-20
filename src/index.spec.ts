@@ -29,7 +29,10 @@ describe('prepare', () => {
     });
     it('should call the base plugin', async () => {
         const pluginConfig = {foo: 'bar'};
-        const context = {fooz: 'barz'} as unknown as PrepareContext;
+        const context = {
+            logger: {log: jest.fn()},
+            branch: {name: 'master'},
+        } as unknown as PrepareContext;
         await prepare(pluginConfig, context);
         expect(prepareBase).toHaveBeenCalledWith(pluginConfig, context);
     });
@@ -40,12 +43,15 @@ describe('prepare', () => {
         [{branches: undefined}, 'main'],
         [{branches: 12}, 'main'],
         [{branches: 'master'}, 'master'],
+        [{branches: ['master', 'develop']}, 'master'],
+        [{branches: ['master', 'develop']}, 'develop'],
         [{branches: '^(develop|master)$'}, 'master'],
     ])(
         'should run with config %s on branch %s',
         async (pluginConfig, branch) => {
             const context = {
                 branch: {name: branch},
+                logger: {log: jest.fn()},
             } as unknown as PrepareContext;
             await prepare(pluginConfig, context);
             expect(prepareBase).toHaveBeenCalledWith(pluginConfig, context);
@@ -54,12 +60,14 @@ describe('prepare', () => {
 
     test.each([
         [{branches: 'fooo'}, 'main'],
+        [{branches: ['master', 'develop']}, 'main'],
         [{branches: '^(develop|master)$'}, 'main'],
     ])(
         'should not run with config %s on branch %s',
         async (pluginConfig, branch) => {
             const context = {
                 branch: {name: branch},
+                logger: {log: jest.fn()},
             } as unknown as PrepareContext;
 
             await prepare(pluginConfig, context);

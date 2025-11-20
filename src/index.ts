@@ -15,19 +15,31 @@ export const prepare = async (
     pluginConfig: unknown,
     context: PrepareContext,
 ) => {
-    const onlyOnBranches =
+    let onlyOnBranchesRegex: RegExp | undefined;
+    if (
         pluginConfig &&
         typeof pluginConfig === 'object' &&
-        'branches' in pluginConfig &&
-        typeof pluginConfig.branches === 'string'
-            ? pluginConfig.branches
-            : undefined;
+        'branches' in pluginConfig
+    ) {
+        if (typeof pluginConfig.branches === 'string') {
+            onlyOnBranchesRegex = new RegExp(pluginConfig.branches);
+            context.logger.log('Configured branch regex: %s', pluginConfig.branches);
+        } else if (Array.isArray(pluginConfig.branches)) {
+            // Escape branch names to be used in a regex, then join with |
+            const escapedBranches = pluginConfig.branches.map(
+                (branch: string) => branch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+            );
+            onlyOnBranchesRegex = new RegExp(`^(${escapedBranches.join('|')})$`);
+            context.logger.log('Configured branches: %s', pluginConfig.branches.join(', '));
+        }
+    }
 
     // if the plugin is configured with a `branches` option, only run on those branches
-    if (
-        onlyOnBranches &&
-        !new RegExp(onlyOnBranches).test(context.branch.name)
-    ) {
+    if (onlyOnBranchesRegex && !onlyOnBranchesRegex.test(context.branch.name)) {
+        context.logger.log(
+            'Current branch "%s" does not match configured branches, skipping prepareBase step.',
+            context.branch.name
+        );
         return;
     }
 

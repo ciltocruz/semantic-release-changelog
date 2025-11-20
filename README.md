@@ -1,5 +1,7 @@
 # semantic-release-changelog
 
+> **Note**: This is a fork of [@flexperto/semantic-release-changelog](https://github.com/flexperto/semantic-release-changelog). The original project is no longer supported, so I am continuing its maintenance here.
+
 A semantic release plugin for generating changelogs
 
 ## Description

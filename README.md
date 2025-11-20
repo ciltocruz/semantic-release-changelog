@@ -8,7 +8,7 @@ This plugin effectively wraps [@semantic-release/changelog](https://github.com/s
 
 ## Installation
 
-`npm i @flexperto/semantic-release-changelog`
+`npm i @ciltocruz/semantic-release-changelog`
 
 ## Usage
 

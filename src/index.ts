@@ -1,8 +1,8 @@
 import {
-    verifyConditions as verifyConditionsBase,
     prepare as prepareBase,
+    verifyConditions as verifyConditionsBase,
 } from '@semantic-release/changelog';
-import {VerifyConditionsContext, PrepareContext} from 'semantic-release';
+import {PrepareContext, VerifyConditionsContext} from 'semantic-release';
 
 export const verifyConditions = async (
     pluginConfig: unknown,
@@ -23,14 +23,23 @@ export const prepare = async (
     ) {
         if (typeof pluginConfig.branches === 'string') {
             onlyOnBranchesRegex = new RegExp(pluginConfig.branches);
-            context.logger.log('Configured branch regex: %s', pluginConfig.branches);
+            context.logger.log(
+                'Configured branch regex: %s',
+                pluginConfig.branches,
+            );
         } else if (Array.isArray(pluginConfig.branches)) {
             // Escape branch names to be used in a regex, then join with |
             const escapedBranches = pluginConfig.branches.map(
-                (branch: string) => branch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+                (branch: string) =>
+                    branch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
             );
-            onlyOnBranchesRegex = new RegExp(`^(${escapedBranches.join('|')})$`);
-            context.logger.log('Configured branches: %s', pluginConfig.branches.join(', '));
+            onlyOnBranchesRegex = new RegExp(
+                `^(${escapedBranches.join('|')})$`,
+            );
+            context.logger.log(
+                'Configured branches: %s',
+                pluginConfig.branches.join(', '),
+            );
         }
     }
 
@@ -38,7 +47,7 @@ export const prepare = async (
     if (onlyOnBranchesRegex && !onlyOnBranchesRegex.test(context.branch.name)) {
         context.logger.log(
             'Current branch "%s" does not match configured branches, skipping prepareBase step.',
-            context.branch.name
+            context.branch.name,
         );
         return;
     }

@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/ciltocruz/semantic-release-changelog/compare/v1.0.1...v1.0.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* Enhance branch configuration handling and logging in prepare function ([3bf9c65](https://github.com/ciltocruz/semantic-release-changelog/commit/3bf9c6585d14ec0dd4b67d1994cbbd8bf4065bb1))
+
 ## [1.0.1](https://github.com/ciltocruz/semantic-release-changelog/compare/v1.0.0...v1.0.1) (2025-11-20)
 
 

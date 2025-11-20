@@ -1,7 +1,7 @@
 {
     "name": "@ciltocruz/semantic-release-changelog",
     "description": "Generate a changelog from git metadata",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "proprietary",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

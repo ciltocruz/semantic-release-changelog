@@ -21,7 +21,7 @@
     "author": "flexperto GmbH",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com:flexperto/semantic-release-changelog.git"
+        "url": "https://github.com/ciltocruz/semantic-release-changelog.git"
     },
     "husky": {
         "hooks": {
@@ -29,7 +29,7 @@
             "pre-push": "./bin/pre-push"
         }
     },
-    "homepage": "https://github.com/flexperto/semantic-release-changelog#readme",
+    "homepage": "https://github.com/ciltocruz/semantic-release-changelog#readme",
     "dependencies": {
         "@semantic-release/changelog": "^6.0.3"
     },

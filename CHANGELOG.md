@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/ciltocruz/semantic-release-changelog/compare/v1.0.0...v1.0.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* Set publishConfig access to public ([36f433a](https://github.com/ciltocruz/semantic-release-changelog/commit/36f433af49d15e1a7494b641101f9c3763433a7f))
+
 # 1.0.0 (2025-11-20)
 
 

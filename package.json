@@ -9,6 +9,9 @@
         "node": ">=20",
         "npm": ">=9"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "build": "rimraf dist && tsc",
         "graph-dependencies": "npx depcruise 'src' --output-type dot > dependency-graph.dot",
